@@ -1,0 +1,14 @@
+newmtl lambert2SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd pared-vacia-espacio-copia_1339-3031.avif.png
+Ni 1.00
+newmtl lambert3SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd metallic-wavy-gradient-mesh-monochromatic-260nw-2286953987.webp.png
+Ni 1.00
