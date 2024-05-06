@@ -1,1 +1,23 @@
-﻿
+﻿  315160020_REPORTE10_GPO7.cpp
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\mesh.h(88,50): warning C4267: 'argumento': conversión de 'size_t' a 'GLsizei'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(61,15): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(64,15): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(65,15): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(66,15): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(128,1): error C3927: "->": no se admite el tipo de valor devuelto final después de un declarador que no es de función
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(128,7): error C3484: error de sintaxis: se esperaba '->' antes del tipo de valor devuelto
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(128,8): error C3613: falta el tipo de devolución después de '->' (se presupone 'int')
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(128,20): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(128,1): error C2371: 'buffer': nueva definición; tipos básicos distintos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(127,17): message : vea la declaración de 'buffer'
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(128,8): error C2146: error de sintaxis: falta ';' delante del identificador 'loadFromFile'
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(346,24): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(399,89): warning C4305: 'argumento': truncamiento de 'double' a 'GLfloat'
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(743,19): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(751,18): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(846,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(847,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(851,18): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(852,18): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(854,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(855,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos

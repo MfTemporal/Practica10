@@ -1,27 +1,17 @@
 ﻿  315160020_REPORTE10_GPO7.cpp
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(62,15): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
 D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(65,15): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(66,15): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(67,15): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(221,24): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(290,88): warning C4305: 'argumento': truncamiento de 'double' a 'GLfloat'
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(613,19): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(621,18): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(636,19): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(644,19): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(658,19): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(666,19): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(681,19): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(689,19): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(776,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(777,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(781,18): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(782,18): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(784,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(785,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-LINK : warning LNK4098: la biblioteca predeterminada'MSVCRT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
-soil2-debug.lib(etc1_utils.obj) : warning LNK4099: no se encontró PDB '' con 'soil2-debug.lib(etc1_utils.obj)' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
-soil2-debug.lib(image_DXT.obj) : warning LNK4099: no se encontró PDB '' con 'soil2-debug.lib(image_DXT.obj)' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
-soil2-debug.lib(image_helper.obj) : warning LNK4099: no se encontró PDB '' con 'soil2-debug.lib(image_helper.obj)' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
-soil2-debug.lib(SOIL2.obj) : warning LNK4099: no se encontró PDB '' con 'soil2-debug.lib(SOIL2.obj)' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(68,15): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(69,15): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(70,15): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(362,24): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(415,89): warning C4305: 'argumento': truncamiento de 'double' a 'GLfloat'
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(801,19): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(809,18): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(889,18): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(951,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(952,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(956,18): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(957,18): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(959,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Practica1\315160020_REPORTE10_GPO7.cpp(960,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
   Practica1.vcxproj -> D:\la_ca\Documents\Semestre 9\Compu Grafica v2\Lab\Visual\Practica1\Debug\Practica1.exe

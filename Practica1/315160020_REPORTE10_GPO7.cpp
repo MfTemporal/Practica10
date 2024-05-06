@@ -3,7 +3,7 @@
 
 // GLEW
 #include <GL/glew.h>
-
+#include <SFML/Audio.hpp>
 // GLFW
 #include <GLFW/glfw3.h>
 
@@ -23,22 +23,25 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "Model.h"
+#include "Texture.h"
 
 // Function prototypes
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
 void MouseCallback(GLFWwindow *window, double xPos, double yPos);
 void DoMovement();
+void ApuntarCamaraAlOrigen(Camera& camera);
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
 
 // Camera
-Camera  camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera  camera(glm::vec3(-1.77f, 3.65f,15.39f));
 GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
 bool keys[1024];
 bool firstMouse = true;
+
 // Light attributes
 glm::vec3 lightPos(0.0f, 0.0f, 0.0f);
 bool active;
@@ -46,11 +49,14 @@ bool luz1 = true;
 bool luz2 = false;
 bool luz3 = false;
 bool luz4 = false;
+bool puerta = false;
+bool puerta2 = false;
 bool direccion = true;
+bool estante = false;
 
 // Positions of the point lights
 glm::vec3 pointLightPositions[] = {
-	glm::vec3(-2.03f,3.73f, -3.02f)
+	glm::vec3(-2.03f,3.73f, -2.93f)
 };
 
 
@@ -68,6 +74,8 @@ float pruebay = 0;
 float pruebaz = 0;
 
 float luz1f=0;
+float abrirp = 0;
+float abest = 0;
 
 float vertices[] = {
 	 -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -121,6 +129,11 @@ glm::vec3 Light2 = glm::vec3(0);
 glm::vec3 Light3 = glm::vec3(0);
 glm::vec3 Light4 = glm::vec3(0);
 
+sf::Sound sound;
+sf::SoundBuffer buffer;
+
+
+
 
 // Deltatime
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
@@ -128,6 +141,11 @@ GLfloat lastFrame = 0.0f;  	// Time of last frame
 
 int main()
 {
+	buffer.loadFromFile("puerta2.wav");
+	sound.setPosition(0, 0, 0);
+	sound.setBuffer(buffer);
+	sound.setVolume(20.0f);
+	//sound.setMinDistance(10.0f);
 	// Init GLFW
 	glfwInit();
 	// Set all the required options for GLFW
@@ -171,21 +189,28 @@ int main()
 	// Define the viewport dimensions
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
 
 
 	Shader lightingShader("Shaders/lighting.vs", "Shaders/lighting.frag");
 	Shader lampShader("Shaders/lamp.vs", "Shaders/lamp.frag");
+	Shader SkyBoxshader("Shaders/SkyBox.vs", "Shaders/SkyBox.frag");
 	
 	Model Piso((char*)"Models/Pisop/Piso3.obj");
 	Model Esfera((char*)"Models/Esfera/Esfera_s.obj");
 	Model foco((char*)"Models/Foco/foco.obj");
 	Model box((char*)"Models/box/box.obj");
-	Model marco((char*)"Models/Fachada/MarcosPuerta1.obj");
-	Model vidrio((char*)"Models/Fachada/Vidrio1.obj");
-	Model estante((char*)"Models/Estante/estante.obj"); //estante
+	Model marco((char*)"Models/puerta2/Marcos.obj");
+	Model vidrio((char*)"Models/puerta2/Vidrio.obj");
+	Model estante((char*)"Models/Estante1/estante.obj"); //estante
+	Model puertae((char*)"Models/Estante1/puertaest.obj"); //estante
+	Model coca((char*)"Models/pepsi/coca.obj"); //estante
 
 	Model mostaza((char*)"Models/Botesitos/mostaza.obj"); //bote1
 	Model capsup((char*)"Models/Botesitos/capsup.obj"); //bote2
+	Model sillaB((char*)"Models/SilladeBarra/SillaComp.obj");
+	Model sillaN((char*)"Models/SillaN/Silla.obj");
 
 	Model mesa((char*)"Models/mesbar/mesita.obj");//MEsa
 	Model barra((char*)"Models/mesbar/barranw.obj");//Barra
@@ -194,27 +219,140 @@ int main()
 	Model ventanas((char*)"Models/facha1/ventanas2.obj");
 
 
+	GLfloat skyboxVertices[] = {
+		// Positions
+		-1.0f,  1.0f, -1.0f,
+		-1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+
+		-1.0f, -1.0f,  1.0f,
+		-1.0f, -1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f,  1.0f,
+		-1.0f, -1.0f,  1.0f,
+
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+
+		-1.0f, -1.0f,  1.0f,
+		-1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f, -1.0f,  1.0f,
+		-1.0f, -1.0f,  1.0f,
+
+		-1.0f,  1.0f, -1.0f,
+		1.0f,  1.0f, -1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		-1.0f,  1.0f,  1.0f,
+		-1.0f,  1.0f, -1.0f,
+
+		-1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f,  1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f,  1.0f,
+		1.0f, -1.0f,  1.0f
+	};
 
 
-	// First, set the container's VAO (and VBO)
-	GLuint VBO, VAO;
+	GLuint indices[] =
+	{  // Note that we start from 0!
+		0,1,2,3,
+		4,5,6,7,
+		8,9,10,11,
+		12,13,14,15,
+		16,17,18,19,
+		20,21,22,23,
+		24,25,26,27,
+		28,29,30,31,
+		32,33,34,35
+	};
+
+	glm::vec3 cubePositions[] = {
+		glm::vec3(0.0f,  0.0f,  0.0f),
+		glm::vec3(2.0f,  5.0f, -15.0f),
+		glm::vec3(-1.5f, -2.2f, -2.5f),
+		glm::vec3(-3.8f, -2.0f, -12.3f),
+		glm::vec3(2.4f, -0.4f, -3.5f),
+		glm::vec3(-1.7f,  3.0f, -7.5f),
+		glm::vec3(1.3f, -2.0f, -2.5f),
+		glm::vec3(1.5f,  2.0f, -2.5f),
+		glm::vec3(1.5f,  0.2f, -1.5f),
+		glm::vec3(-1.3f,  1.0f, -1.5f)
+	};
+
+
+	GLuint VBO, VAO, EBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
+
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
 	// Position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
-	// normal attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	// Normals attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
+	// Texture Coordinate attribute
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
+	glBindVertexArray(0);
+
+	// Then, we set the light's VAO (VBO stays the same. After all, the vertices are the same for the light object (also a 3D cube))
+	GLuint lightVAO;
+	glGenVertexArrays(1, &lightVAO);
+	glBindVertexArray(lightVAO);
+	// We only need to bind to the VBO (to link it with glVertexAttribPointer), no need to fill it; the VBO's data already contains all we need.
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	// Set the vertex attributes (only position data for the lamp))
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0); // Note that we skip over the other data in our buffer object (we don't need the normals/textures, only positions).
+	glEnableVertexAttribArray(0);
+	glBindVertexArray(0);
 
 	// Set texture units
 	lightingShader.Use();
 
 
-	glm::mat4 projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 100.0f);
+	//SkyBox
+	GLuint skyboxVBO, skyboxVAO;
+	glGenVertexArrays(1, &skyboxVAO);
+	glGenBuffers(1, &skyboxVBO);
+	glBindVertexArray(skyboxVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+
+	// Load textures
+	vector<const GLchar*> faces;
+	faces.push_back("SkyBox/skyright.tga");
+	faces.push_back("SkyBox/skyleft.tga");
+	faces.push_back("SkyBox/skytop.tga");
+	faces.push_back("SkyBox/skybottom.tga");
+	faces.push_back("SkyBox/skyback.tga");
+	faces.push_back("SkyBox/skyfront.tga");
+
+	GLuint cubemapTexture = TextureLoading::LoadCubemap(faces);
+
+	glm::mat4 projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 1000.0f);
+
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
@@ -346,33 +484,90 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		mesa.Draw(lightingShader);
 
-		/*marco.Draw(lightingShader);
-		model = glm::translate(model, glm::vec3(0.5f, 2.0f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		estante.Draw(lightingShader);
-		model = glm::translate(model, glm::vec3(0.5f, 0.0f, 1.5f));
+
+		
+
+		model = glm::translate(model, glm::vec3(.04, .53, .05));
+		model = glm::scale(model, glm::vec3(.35f, .4f, .35f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		mostaza.Draw(lightingShader);
-		model = glm::translate(model, glm::vec3(0.2f, 0.0f, 1.5f));
+		model = glm::translate(model, glm::vec3(-.24, 0, -.03));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		capsup.Draw(lightingShader);
 
-		//mostaza.Draw(lightingShader);
 		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(3.2f, .41f, -1.8f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		mesa.Draw(lightingShader);
+
+
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-.53, .18, .31));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillaB.Draw(lightingShader);
+
+		model = glm::translate(model, glm::vec3(-1, 0, 0));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillaB.Draw(lightingShader);
+
+		model = glm::translate(model, glm::vec3(-1.5, 0, 0));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillaB.Draw(lightingShader);
+
+
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(1.96, -.06, .15));
+		model = glm::scale(model, glm::vec3(2, 2, 2));
+		model = glm::rotate(model, glm::radians(135.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillaN.Draw(lightingShader);
+
+
+		model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(1, 0, 0));
+		
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillaN.Draw(lightingShader);
+
+		model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(.05, 0, -1.129));
+
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		sillaN.Draw(lightingShader);
+
+
+		model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(2, 2, 2));
+		//model = glm::rotate(model, glm::radians(pruebay), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		estante.Draw(lightingShader);
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-3.42, 2.01, .02));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		coca.Draw(lightingShader);
+
+
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-1.359, 1.26, -2.589));
+		model = glm::rotate(model, glm::radians(abrirp), glm::vec3(0.0f, 1.0f, 0.0f));
+		
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		marco.Draw(lightingShader);
 
 		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(1.0f, 1.0f, 2.0f));
+		model = glm::translate(model, glm::vec3(-3.18, 1.26, 4.85));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		mesa.Draw(lightingShader);
+		marco.Draw(lightingShader);
 
-		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
+
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-3.35, 2.26, -.25));
+		model = glm::rotate(model, glm::radians(abest), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		barra.Draw(lightingShader);
-		*/
+		puertae.Draw(lightingShader);
+		
 
 
 
@@ -385,36 +580,27 @@ int main()
 		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 1.0f, .35f);
 		ventanas.Draw(lightingShader);
 
-		printf("x%f\n", pruebax);
-		printf("y%f\n", pruebay);
-		printf("z%f\n", pruebaz);
 
-
-		/*
-		//esfera3
-		model = glm::translate(model, glm::vec3(6.0f, 0.0f, 0.0f));
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-1.359, 1.26, -2.589));
+		model = glm::rotate(model, glm::radians(abrirp), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 0.0f, .65f);
-		Esfera.Draw(lightingShader);
+		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 1.0f, .35f);
+		vidrio.Draw(lightingShader);
 
-
-		//esfera4
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -6.0f));
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-3.18, 1.26, 4.85));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 0.0f, .65f);
-		Esfera.Draw(lightingShader);
+		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0f, 1.0f, 1.0f, .35f);
+		vidrio.Draw(lightingShader);
 
+		printf("x%f\n", 90 - camera.GetYaw());
+		printf("y%f\n", 0- camera.GetPitch());
+		//printf("z%f\n", camera.GetPosition().z);
+		
 
-
-
-		//esfera 2
-
-		/*printf("Posx:%f", camera.GetPosition().x);
-		printf("PosY:%f", camera.GetPosition().y);
-		printf("PosZ:%f", camera.GetPosition().z);
-		printf("DIRX:%f", camera.GetFront().x);
-		printf("DIRY:%f", camera.GetFront().y);
-		printf("DIRZ:%f", camera.GetFront().z);*/
+		
 
 
 		glDisable(GL_BLEND);  //Desactiva el canal alfa 
@@ -451,11 +637,33 @@ int main()
 		glBindVertexArray(0);
 
 
+		// Draw skybox as last
+		glDepthFunc(GL_LEQUAL);  // Change depth function so depth test passes when values are equal to depth buffer's content
+		SkyBoxshader.Use();
+		view = glm::mat4(glm::mat3(camera.GetViewMatrix()));	// Remove any translation component of the view matrix
+		glUniformMatrix4fv(glGetUniformLocation(SkyBoxshader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(glGetUniformLocation(SkyBoxshader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+		// skybox cube
+		glBindVertexArray(skyboxVAO);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glBindVertexArray(0);
+		glDepthFunc(GL_LESS); // Set depth function back to default
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);
 	}
 
+
+
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteVertexArrays(1, &lightVAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
+	glDeleteVertexArrays(1, &skyboxVAO);
+	glDeleteBuffers(1, &skyboxVBO);
 
 	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
@@ -497,19 +705,13 @@ void DoMovement()
 
 	}
 
-	if (keys[GLFW_KEY_T])
-	{
-		pointLightPositions[0].x += 0.01f;
-	}
+
 	if (keys[GLFW_KEY_G])
 	{
 		pointLightPositions[0].x -= 0.01f;
 	}
 
-	if (keys[GLFW_KEY_Y])
-	{
-		pointLightPositions[0].y += 0.01f;
-	}
+	
 
 	if (keys[GLFW_KEY_H])
 	{
@@ -526,7 +728,7 @@ void DoMovement()
 
 	if (keys[GLFW_KEY_1])
 	{
-		splposx  += 0.03f;
+		ApuntarCamaraAlOrigen(camera);
 	}
 
 	if (keys[GLFW_KEY_3])
@@ -659,6 +861,38 @@ void DoMovement()
 		}
 	}
 	*/
+
+	if (puerta) {
+		
+		if (abrirp < 89 and not puerta2) {
+			abrirp = abrirp + 3;
+
+			if (abrirp >= 89) {
+				puerta = false;
+				puerta2 = true;
+			}
+		}
+		else if (puerta2) {
+			abrirp = abrirp - 3;
+
+			if (abrirp <= 0) {
+				puerta = false;
+				puerta2 = false;
+			}
+		}
+
+	}
+	
+	if (estante) {
+
+		if (abest < 190) {
+			abest = abest + 1.2;
+			
+		}
+
+	}
+
+
 	
 }
 
@@ -689,13 +923,29 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 		luz2 = false;
 		//luz3 = false;
 		//luz4 = false;
+		
+	}
+
+
+	if (keys[GLFW_KEY_T])
+	{
+		puerta = true;
+		sound.play();
+
+
+	}
+
+	if (keys[GLFW_KEY_Y])
+	{
+		estante=true;
 	}
 
 	
 }
 
-void MouseCallback(GLFWwindow *window, double xPos, double yPos)
+void MouseCallback(GLFWwindow* window, double xPos, double yPos)
 {
+
 	if (firstMouse)
 	{
 		lastX = xPos;
@@ -710,4 +960,14 @@ void MouseCallback(GLFWwindow *window, double xPos, double yPos)
 	lastY = yPos;
 
 	camera.ProcessMouseMovement(xOffset, yOffset);
+}
+
+void ApuntarCamaraAlOrigen(Camera& camera) {
+	//glm::vec3 direccion = glm::normalize(glm::vec3(0.0f, 0.0f, 0.0f) - camera.GetPosition());
+	//GLfloat yaw = glm::degrees(atan2(direccion.x, direccion.z)) +90;
+	//GLfloat pitch = glm::degrees(asin(direccion.y));
+	//camera.position = glm::vec3(-1.77f, 3.65f, -15.39f);
+	glm::vec3 nuevaPosicion = glm::vec3(-1.77f, 3.65f, -15.39f); // Reemplaza x, y, z con las coordenadas deseadas
+	camera.SetPosition(nuevaPosicion);
+	camera.ProcessMouseMovement(90 - camera.GetYaw(), 0 - camera.GetPitch());
 }
